@@ -15,10 +15,21 @@ const validate = (req, res, next) => {
 	if (errors.isEmpty()) {
 		return next();
 	}
+
 	const extractedErrors = []
-	errors.array().map(err => extractedErrors.push({
-		[err.param]: err.msg
-	}));
+	errors.array().forEach(err => {
+		if (err.type === 'alternative') {
+			err.nestedErrors.forEach(nestedErr => {
+				extractedErrors.push({
+					[nestedErr.path]: nestedErr.msg
+				});
+			});
+		} else if (err.type === 'field') {
+			extractedErrors.push({
+				[err.path]: err.msg
+			});
+		}
+	});
 
 	return res.status(400).send({
 		message: getNestedValuesString(extractedErrors),
