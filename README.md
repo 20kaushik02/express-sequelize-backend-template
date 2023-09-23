@@ -2,9 +2,9 @@
 
 ### To get started:
 
-- Clone this repo: `git clone https://gitlab.com/20kaushik02/express-sequelize-backend-template`
+- Clone this repo: `git clone https://github.com/20kaushik02/express-sequelize-backend-template`
 - Reset the git remote repo URL: `git remote rm origin`
-- Set new git remote URL: `git remote add origin https://gitlab.com/20kaushik02/new-repo-name`
+- Set new git remote URL: `git remote add origin https://github.com/20kaushik02/new-repo-name`
 - Remove the template environment files from git alone: `git rm -r --cached *.env*`
 
 ### Project setup:
