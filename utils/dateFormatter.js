@@ -1,12 +1,14 @@
 /**
  * Returns a timestamp string to use for timestamped files
- * @returns {string} String of current datetime in YYYY.MM.DD-HH:MM:SS format
+ * @returns {string} String of current datetime in YYYYMMDDHHMMSS format
  */
 const dateForFilename = () => {
-	const dt = new Date();
-	return `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}-${dt.getHours()}-${dt.getMinutes()}-${dt.getSeconds()}`;
+	return new Date().
+		toISOString().slice(-24).
+		replace(/\D/g, '').
+		slice(0, 14);
 }
 
 module.exports = {
 	dateForFilename,
-}
+};

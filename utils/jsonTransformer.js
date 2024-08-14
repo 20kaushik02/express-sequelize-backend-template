@@ -1,11 +1,11 @@
 /**
- * String joins all the values of a JSON object, including nested keys
+ * Stringifies only values of a JSON object, including nested ones
  * 
  * @param {any} obj JSON object
  * @param {string} delimiter Delimiter of final string
- * @returns 
+ * @returns {string}
  */
-const getNestedValuesString = (obj, delimiter) => {
+const getNestedValuesString = (obj, delimiter = ', ') => {
 	let values = [];
 	for (key in obj) {
 		if (typeof obj[key] !== "object") {
@@ -15,9 +15,9 @@ const getNestedValuesString = (obj, delimiter) => {
 		}
 	}
 
-	return delimiter ? values.join(delimiter) : values.join();
+	return values.join(delimiter);
 }
 
 module.exports = {
 	getNestedValuesString
-}
+};

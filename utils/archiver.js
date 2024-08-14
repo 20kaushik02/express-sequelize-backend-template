@@ -2,8 +2,8 @@ const fs = require("fs");
 const archiver = require('archiver');
 
 /**
- * @param {String} sourceDir: /some/folder/to/compress
- * @param {String} outPath: /path/to/created.zip
+ * @param {string} sourceDir /some/folder/to/compress
+ * @param {string} outPath /path/to/created.zip
  * @returns {Promise}
  */
 function zipDirectory(sourceDir, outPath) {
@@ -24,4 +24,4 @@ function zipDirectory(sourceDir, outPath) {
 
 module.exports = {
 	zipDirectory,
-}
+};

@@ -1,1 +1,1 @@
-## Database (mainly Sequelize's) migrations
+# Sequelize migrations folder

@@ -1,8 +1,8 @@
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
-const privateKey = fs.readFileSync(process.env.PRIVKEY);
-const publicKey = fs.readFileSync(process.env.PUBKEY);
+const privateKey = fs.readFileSync(process.env.PRIVKEY_PATH);
+const publicKey = fs.readFileSync(process.env.PUBKEY_PATH);
 
 /**
  * Sign data into JWT with JWT env secret
@@ -10,7 +10,7 @@ const publicKey = fs.readFileSync(process.env.PUBKEY);
  * @returns {jwt.JwtPayload}
  */
 const getJWT = (data) => {
-  return jwt.sign({ id: data }, process.env.JWTSECRET, { algorithm: "HS256" }); // symmetric encryption, so simple secret with SHA
+	return jwt.sign({ id: data }, process.env.JWTSECRET, { algorithm: "HS256" }); // symmetric encryption, so simple secret with SHA
 };
 
 /**
@@ -19,13 +19,7 @@ const getJWT = (data) => {
  * @returns {jwt.JwtPayload}
  */
 const getSignedJWT = (data) => {
-  return jwt.sign(
-    { id: data },
-    privateKey,
-    {
-      algorithm: "RS256", // asymmetric signing, so private key with RSA
-    }
-  )
+	return jwt.sign({ id: data }, privateKey, { algorithm: "RS256" }); // asymmetric signing, so private key with RSA
 }
 
 /**
@@ -34,7 +28,7 @@ const getSignedJWT = (data) => {
  * @returns {string|any}
  */
 const verifyJWT = (data) => {
-  return jwt.verify(data, process.env.JWTSECRET, { algorithms: ["HS256"] });
+	return jwt.verify(data, process.env.JWTSECRET, { algorithms: ["HS256"] });
 }
 
 /**
@@ -43,18 +37,12 @@ const verifyJWT = (data) => {
  * @returns {string|any}
  */
 const verifySignedJWT = (signedString) => {
-  return jwt.verify(
-    signedString,
-    publicKey,
-    {
-      algorithms: ["RS256"]
-    }
-  );
+	return jwt.verify(signedString, publicKey, { algorithms: ["RS256"] });
 }
 
 module.exports = {
-  getJWT,
-  verifyJWT,
-  getSignedJWT,
-  verifySignedJWT,
+	getJWT,
+	verifyJWT,
+	getSignedJWT,
+	verifySignedJWT,
 };

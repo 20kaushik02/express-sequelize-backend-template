@@ -1,7 +1,8 @@
 const fetch = require("cross-fetch");
 
-const typedefs = require("../typedefs");
 const logger = require("../utils/logger")(module);
+
+const typedefs = require("../typedefs");
 
 /**
  * Google ReCAPTCHA v2 verification
@@ -19,18 +20,20 @@ const verifyCaptcha = async (req, res, next) => {
 		const captchaResp = await fetch(verifyCaptchaURL);
 		const captchaData = await captchaResp.json();
 		if (captchaData.success !== undefined && !captchaData.success) {
-			logger.error("Recaptcha", { captchaData });
-			return res.status(403).send({
+			res.status(403).send({
 				message: "Failed captcha verification"
 			});
+			logger.error("Recaptcha", { captchaData });
+			return;
 		}
 		next();
 	} catch (error) {
-		logger.error("Error", { error });
-		return res.status(500).send({ message: "Server Error. Try again." });
+		res.sendStatus(500);
+		logger.error("verifyCaptcha", { error });
+		return;
 	}
 }
 
 module.exports = {
 	verifyCaptcha
-}
+};

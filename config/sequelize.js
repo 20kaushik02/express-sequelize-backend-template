@@ -1,23 +1,28 @@
-module.exports = {
-  "development": {
-    "username": process.env.DB_USERNAME, // local PostgreSQL DB username
-    "password": process.env.DB_PASSWORD, // local PostgreSQL DB password
-    "host": "127.0.0.1", // localhost
-    "database": process.env.DB_NAME, // local PostgreSQL DB name
-    "dialect": "postgres"
-  },
-  "staging": {
-    "use_env_variable": "DB_URL", // staging database connection string
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": true,
-    },
-  },
-  "production": {
-    "use_env_variable": "DB_URL", // production database connection string
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": true,
-    },
-  }
+const logger = require("../utils/logger")(module);
+
+const connConfigs = {
+	development: {
+		username: process.env.DB_USERNAME || 'postgres',
+		password: process.env.DB_PASSWORD || '',
+		database: process.env.DB_NAME || 'postgres',
+		host: process.env.DB_HOST || '127.0.0.1',
+		port: process.env.DB_PORT || 5432,
+	},
+	staging: {
+		use_env_variable: "DB_URL", // use connection string for non-dev env
+	},
+	production: {
+		use_env_variable: "DB_URL", // use connection string for non-dev env
+		// dialectOptions: {
+		//   ssl: true,
+		// },
+	}
 }
+
+// common config
+for (const conf in connConfigs) {
+	connConfigs[conf]['logging'] = (msg) => logger.debug(msg);
+	connConfigs[conf]['dialect'] = process.env.DB_DIALECT || 'postgres';
+}
+
+module.exports = connConfigs;

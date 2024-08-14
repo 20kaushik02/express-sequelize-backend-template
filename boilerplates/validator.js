@@ -24,5 +24,4 @@ const __validator_func = async (req, res, next) => {
 
 module.exports = {
 	__validator_func,
-}
-
+};

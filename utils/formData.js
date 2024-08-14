@@ -1,3 +1,9 @@
+/**
+ * Recursively build a FormData object from a JSON object
+ * @param {FormData} formData
+ * @param {any} data
+ * @param {string} parentKey
+ */
 function buildFormData(formData, data, parentKey) {
 	if (data && typeof data === 'object' && !(data instanceof Date)) {
 		Object.keys(data).forEach(key => {
@@ -10,6 +16,11 @@ function buildFormData(formData, data, parentKey) {
 	}
 }
 
+/**
+ * Converts a JSON object to a FormData object
+ * @param {any} data
+ * @returns {FormData}
+ */
 function jsonToFormData(data) {
 	const formData = new FormData();
 
@@ -21,4 +32,4 @@ function jsonToFormData(data) {
 module.exports = {
 	jsonToFormData,
 	buildFormData,
-}
+};

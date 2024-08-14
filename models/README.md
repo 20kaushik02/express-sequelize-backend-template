@@ -1,1 +1,1 @@
-## Database ORM (mainly Sequelize's) models
+# Sequelize model schema

@@ -1,5 +1,6 @@
-const typedefs = require("../typedefs");
 const logger = require("../utils/logger")(module);
+
+const typedefs = require("../typedefs");
 
 /**
  * Business logic to go in these controller functions.
@@ -12,8 +13,9 @@ const __controller_func = async (req, res) => {
 	try {
 
 	} catch (error) {
+		res.sendStatus(500);
 		logger.error("__controller_func", { error });
-		return res.status(500).send({ message: "Server Error. Try again." });
+		return;
 	}
 }
 
